@@ -16,5 +16,8 @@
 </template>
 
 <style lang="scss">
-
+  body{
+    background-color: rgb(30, 41, 53);
+    color: white;
+  }
 </style>
