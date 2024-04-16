@@ -24,7 +24,7 @@
                             page: this.page
                         }
                 }).then((res) =>{
-                    const data = res.data;
+                    const data = res.data.results;
                     this.store.db = data;
                     console.log(data);
                 })
