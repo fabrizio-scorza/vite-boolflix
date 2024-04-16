@@ -17,7 +17,7 @@
 
 <style lang="scss">
   body{
-    background-color: rgb(30, 41, 53);
+    background-color: rgb(43, 51, 60);
     color: white;
   }
 </style>
