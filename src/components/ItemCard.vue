@@ -8,17 +8,13 @@ export default {
     },
     methods: {
         starCalc(vote) {
-            let starString = '';
             vote = Math.ceil(vote / 2);
-            let emptyVote = 5 - vote;
-
-            for (let i = 0; i < vote; i++) {
-                starString += '<i class="fa-solid fa-star"></i>'
-            }
-            for (let i = 0; i < emptyVote; i++) {
-                starString += '<i class="fa-regular fa-star"></i>'
-            }
-            return vote, emptyVote, starString;
+            return vote
+        },
+        emptyStarCalc(vote) {
+            vote = Math.ceil(vote / 2);
+            const emptyVote = 5 - vote;
+            return emptyVote
         }
 
     }
@@ -43,7 +39,9 @@ export default {
             <p v-else>
                 {{ item.original_language }}
             </p>
-            <p v-html="starCalc(item.vote_average)">
+            <p>
+                <font-awesome-icon v-for="n in starCalc(item.vote_average)" :key="n" icon="fa-solid fa-star" />
+                <font-awesome-icon v-for="n in emptyStarCalc(item.vote_average)" :key="n" icon="fa-regular fa-star" />
             </p>
         </div>
     </li>

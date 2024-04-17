@@ -16,7 +16,7 @@ export default {
 
 <template>
     <!-- <pre>{{ store.db }}</pre> -->
-    <ul>
+    <ul class="flex">
         <ItemCard v-for="movie in store.db" :key="movie.id" :item="movie" />
     </ul>
 </template>
