@@ -1,23 +1,23 @@
 <script>
-  import AppHeader from './components/AppHeader.vue';
-  import AppContent from './components/AppContent.vue';
+import AppHeader from './components/AppHeader.vue';
+import AppContent from './components/AppContent.vue';
 
-  export default{
-    components:{
-      AppHeader,
-      AppContent
-    }
+export default {
+  components: {
+    AppHeader,
+    AppContent
   }
+}
 </script>
 
 <template>
-  <AppHeader/>
-  <AppContent/> 
+  <AppHeader />
+  <AppContent />
 </template>
 
 <style lang="scss">
-  body{
-    background-color: rgb(43, 51, 60);
-    color: white;
-  }
+body {
+  background-color: black;
+  color: white;
+}
 </style>

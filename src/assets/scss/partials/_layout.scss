@@ -3,3 +3,9 @@
     max-width: 1024px;
     margin: 0 auto;
 }
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}

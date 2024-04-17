@@ -16,9 +16,13 @@ export default {
 
 <template>
     <!-- <pre>{{ store.db }}</pre> -->
-    <ul class="flex">
+    <ul class="flex card-wrapper">
         <ItemCard v-for="movie in store.db" :key="movie.id" :item="movie" />
     </ul>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.card-wrapper {
+    justify-content: center;
+}
+</style>
