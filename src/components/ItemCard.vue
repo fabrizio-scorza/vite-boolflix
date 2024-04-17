@@ -40,7 +40,7 @@ export default {
                 <span>Titolo originale:</span>
                 <span>{{ item.original_title || item.original_name }}</span>
             </h4>
-            <p>
+            <p class="description">
                 <!-- descrizione -->
                 <span>Descrizione:</span>
                 <span>{{ item.overview }}</span>
@@ -70,6 +70,7 @@ export default {
 .card {
     position: relative;
     margin: 15px;
+    border: 1px solid red;
 
     &:hover .card-body.overlay {
         opacity: 1;
@@ -107,9 +108,19 @@ export default {
     }
 }
 
+.description {
+    max-height: 330px;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+}
+
 .card-body-flex {
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+.fa-star {
+    color: goldenrod;
 }
 </style>
