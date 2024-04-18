@@ -31,34 +31,28 @@ export default {
             if (card.title != undefined) {
                 axios.get(`https://api.themoviedb.org/3/movie/${card.id}/credits?api_key=${store.apiKey}&language=${store.language}`).then(res => {
                     const data = res.data.cast;
-                    if (data.length > 5) {
-                        for (let i = 0; i < 5; i++) {
-                            this.cast.push(data[i].name);
-                        }
-                    } else if (data.length > 0 && data.length <= 5) {
-                        for (let i = 0; i < data.length; i++) {
-                            this.cast.push(data[i].name);
-                        }
-                    } else {
-                        this.cast.push('Informazioni sul cast assenti');
-                    }
+                    this.populateCastArray(data);
                 })
             } else {
                 //altrimenti è una serie tv e allora chiama l'api del cast delle serie tv
                 axios.get(`https://api.themoviedb.org/3/tv/${card.id}/credits?api_key=${store.apiKey}&language=${store.language}`).then(res => {
                     const data = res.data.cast;
-                    if (data.length > 5) {
-                        for (let i = 0; i < 5; i++) {
-                            this.cast.push(data[i].name);
-                        }
-                    } else if (data.length > 0 && data.length <= 5) {
-                        for (let i = 0; i < data.length; i++) {
-                            this.cast.push(data[i].name);
-                        }
-                    } else {
-                        this.cast.push('Informazioni sul cast assenti');
-                    }
+                    this.populateCastArray(data);
                 })
+            }
+        },
+        //metodo che popola l'array del cast
+        populateCastArray(data) {
+            if (data.length > 5) {
+                for (let i = 0; i < 5; i++) {
+                    this.cast.push(data[i].name);
+                }
+            } else if (data.length > 0 && data.length <= 5) {
+                for (let i = 0; i < data.length; i++) {
+                    this.cast.push(data[i].name);
+                }
+            } else {
+                this.cast.push('Informazioni sul cast assenti');
             }
         },
         //metodo che chiama la lista dei generi
@@ -69,25 +63,26 @@ export default {
             if (card.title != undefined) {
                 axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${store.apiKey}&language=${callingLang}`).then(res => {
                     const data = res.data.genres;
+                    this.populateGenresArray(data, card)
 
-                    for (let i = 0; i < card.genre_ids.length; i++) {
-                        let index = data.findIndex((element) => element.id == card.genre_ids[i])
-                        this.genres.push(data[index].name)
-
-                    }
-                    if (this.genres.length == 0) {
-                        this.genres.push('Non ci sono informazioni sul genere')
-                    }
                 })
             } else {
                 axios.get(`https://api.themoviedb.org/3/genre/tv/list?api_key=${store.apiKey}&language=${callingLang}`).then(res => {
                     const data = res.data.genres;
+                    this.populateGenresArray(data, card);
 
-                    for (let i = 0; i < card.genre_ids.length; i++) {
-                        let index = data.findIndex((element) => element.id == card.genre_ids[i])
-                        this.genres.push(data[index].name)
-                    }
                 })
+            }
+        },
+        //metodo che popola l'array genres
+        populateGenresArray(data, card) {
+            for (let i = 0; i < card.genre_ids.length; i++) {
+                let index = data.findIndex((element) => element.id == card.genre_ids[i])
+                this.genres.push(data[index].name)
+
+            }
+            if (this.genres.length == 0) {
+                this.genres.push('Non ci sono informazioni sul genere')
             }
         }
     }
