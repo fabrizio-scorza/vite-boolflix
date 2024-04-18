@@ -7,5 +7,5 @@ export const store = reactive({
     seriesDb: [],
     apiKey: '7d0a43d485e86b97c1bff5bec83fa48b',
     language: 'it-IT',
-    page: '1',
+    page: 1,
 })
