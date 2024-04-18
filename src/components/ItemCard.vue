@@ -1,22 +1,45 @@
 <script>
+import axios from 'axios';
+import { store } from '../../store';
+
 export default {
     props: ['item'],
     data() {
         return {
+            store,
             lang: ['en', 'it', 'ja'],
+            cast: []
         }
     },
     methods: {
         starCalc(vote) {
             vote = Math.ceil(vote / 2);
-            return vote
+            return vote;
         },
         emptyStarCalc(vote) {
             vote = Math.ceil(vote / 2);
             const emptyVote = 5 - vote;
-            return emptyVote
+            return emptyVote;
+        },
+        callApi(card) {
+            if (card.title != undefined) {
+                this.cast = [];
+                axios.get(`https://api.themoviedb.org/3/movie/${card.id}/credits?api_key=${store.apiKey}&language=${store.language}`).then(res => {
+                    const data = res.data.cast;
+                    for (let i = 0; i < 5; i++) {
+                        this.cast.push(data[i].name);
+                    }
+                })
+            } else {
+                this.cast = [];
+                axios.get(`https://api.themoviedb.org/3/tv/${card.id}/credits?api_key=${store.apiKey}&language=${store.language}`).then(res => {
+                    const data = res.data.cast;
+                    for (let i = 0; i < 5; i++) {
+                        this.cast.push(data[i].name);
+                    }
+                })
+            }
         }
-
     }
 }
 </script>
@@ -45,6 +68,10 @@ export default {
                 <span>Descrizione:</span>
                 <span>{{ item.overview }}</span>
             </p>
+            <div>
+                <button class="btn" @click="callApi(item)">Show cast</button>
+                <span v-for="actor in cast">{{ actor }}</span>
+            </div>
             <p class="card-body-flex">
                 <!-- paragrafo contenete se lpecifiche di lingua e voto -->
                 <span v-if="lang.includes(item.original_language)" class="card-body-flex">
@@ -98,6 +125,7 @@ export default {
     top: 25px;
     left: 15px;
     opacity: 0;
+    width: 320px;
 
     span:not(:first-child) {
         padding-left: 10px;
@@ -109,9 +137,17 @@ export default {
 }
 
 .description {
-    max-height: 330px;
-    overflow-y: hidden;
-    text-overflow: ellipsis;
+    max-height: 295px;
+    overflow: hidden;
+}
+
+.btn {
+    cursor: pointer;
+    background-color: transparent;
+    color: red;
+    border: none;
+    text-decoration: underline;
+    font-size: 16px;
 }
 
 .card-body-flex {

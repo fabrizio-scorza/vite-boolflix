@@ -1,6 +1,6 @@
 <script>
-import { store } from '../../store'
-import ItemCard from './ItemCard.vue'
+import { store } from '../../store';
+import ItemCard from './ItemCard.vue';
 
 export default {
     components: {
@@ -17,7 +17,8 @@ export default {
 <template>
     <!-- <pre>{{ store.db }}</pre> -->
     <ul class="flex card-wrapper">
-        <ItemCard v-for="movie in store.db" :key="movie.id" :item="movie" />
+        <ItemCard v-for="movie in store.moviesDb" :key="movie.id" :item="movie" />
+        <ItemCard v-for="series in store.seriesDb" :key="series.id" :item="series" />
     </ul>
 </template>
 
