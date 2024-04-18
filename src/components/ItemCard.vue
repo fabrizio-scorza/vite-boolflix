@@ -76,17 +76,6 @@ export default {
                 this.genres.push('Non ci sono informazioni sul genere')
             }
         }
-    },
-    mounted() {
-        const callingLang = this.store.language.slice(0, 2);
-        axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${store.apiKey}&language=${callingLang}`).then(res => {
-            const data = res.data.genres;
-            this.store.moviesGenresList = data;
-        })
-        axios.get(`https://api.themoviedb.org/3/genre/tv/list?api_key=${store.apiKey}&language=${callingLang}`).then(res => {
-            const data = res.data.genres;
-            this.store.seriesGenresList = data;
-        })
     }
 }
 </script>

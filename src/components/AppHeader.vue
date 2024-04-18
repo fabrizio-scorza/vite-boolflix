@@ -38,6 +38,16 @@ export default {
                 })
             return promise;
         }
+    }, mounted() {
+        const callingLang = this.store.language.slice(0, 2);
+        axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${store.apiKey}&language=${callingLang}`).then(res => {
+            const data = res.data.genres;
+            this.store.moviesGenresList = data;
+        })
+        axios.get(`https://api.themoviedb.org/3/genre/tv/list?api_key=${store.apiKey}&language=${callingLang}`).then(res => {
+            const data = res.data.genres;
+            this.store.seriesGenresList = data;
+        })
     }
 }
 </script>
@@ -50,6 +60,11 @@ export default {
                 <font-awesome-icon :icon="['fas', 'film']" />
                 <h1>boolflix</h1>
             </div>
+            <nav>
+                <select name="genres" id="genres">
+                    <option v-for="genre in store.moviesGenresList" :value="genre.id"> {{ genre.name }}</option>
+                </select>
+            </nav>
             <div class="flex">
                 <input type="text" class="searchbar" v-model.trim="searchThis" name="search">
                 <button @click="fetchList()" class="btn">Cerca</button>
