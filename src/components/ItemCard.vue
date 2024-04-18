@@ -55,23 +55,14 @@ export default {
                 this.cast.push('Informazioni sul cast assenti');
             }
         },
-        //metodo che chiama la lista dei generi
+        //metodo che al click sul bottone sceglie a quale db accedere
         callGenre(card) {
-            const callingLang = this.store.language.slice(0, 2);
             this.genres = [];
 
             if (card.title != undefined) {
-                axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${store.apiKey}&language=${callingLang}`).then(res => {
-                    const data = res.data.genres;
-                    this.populateGenresArray(data, card)
-
-                })
+                this.populateGenresArray(store.moviesGenresList, card);
             } else {
-                axios.get(`https://api.themoviedb.org/3/genre/tv/list?api_key=${store.apiKey}&language=${callingLang}`).then(res => {
-                    const data = res.data.genres;
-                    this.populateGenresArray(data, card);
-
-                })
+                this.populateGenresArray(store.seriesGenresList, card);
             }
         },
         //metodo che popola l'array genres
@@ -85,6 +76,17 @@ export default {
                 this.genres.push('Non ci sono informazioni sul genere')
             }
         }
+    },
+    mounted() {
+        const callingLang = this.store.language.slice(0, 2);
+        axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${store.apiKey}&language=${callingLang}`).then(res => {
+            const data = res.data.genres;
+            this.store.moviesGenresList = data;
+        })
+        axios.get(`https://api.themoviedb.org/3/genre/tv/list?api_key=${store.apiKey}&language=${callingLang}`).then(res => {
+            const data = res.data.genres;
+            this.store.seriesGenresList = data;
+        })
     }
 }
 </script>
