@@ -92,6 +92,7 @@ export default {
     position: absolute;
     transform: translateX(100%);
     transform: translateY(5%);
+    display: none;
 }
 
 .searchbar {

@@ -10,6 +10,7 @@ export const store = reactive({
     moviesGenresList: [],
     seriesGenresList: [],
     stringToSearch: '',
+    emptyString: false,
     apiKey: '7d0a43d485e86b97c1bff5bec83fa48b',
     language: 'it-IT',
     page: 1,
@@ -28,6 +29,10 @@ export const store = reactive({
                 const data = res.data.results;
                 this.seriesDb = data;
             });
+        } else {
+            this.moviesDb = [];
+            this.seriesDb = [];
+            this.emptyString = true;
         }
     },
     callThis(link) {

@@ -27,17 +27,21 @@ export default {
 
 <template>
     <!-- <pre>{{ store.db }}</pre> -->
-    <ul class="flex card-wrapper">
+    <ul class="flex wrapper">
         <ItemCard v-for="movie in store.moviesDb" :key="movie.id" :item="movie" />
         <ItemCard v-for="series in store.seriesDb" :key="series.id" :item="series" />
     </ul>
-    <div v-if="store.stringToSearch == ''" class="flex card-wrapper">
-        <p>Nessun elemento trovato</p>
+    <div v-if="store.emptyString" class="flex wrapper no-result">
+        <p>Nessun elemento trovato..</p>
     </div>
 </template>
 
 <style lang="scss" scoped>
-.card-wrapper {
+.wrapper {
     justify-content: center;
+}
+
+.no-result {
+    font-size: 32px;
 }
 </style>
