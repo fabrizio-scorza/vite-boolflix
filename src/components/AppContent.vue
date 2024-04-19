@@ -1,4 +1,5 @@
 <script>
+import axios from 'axios';
 import { store } from '../../store';
 import ItemCard from './ItemCard.vue';
 
@@ -10,7 +11,17 @@ export default {
         return {
             store,
         }
+    }, mounted() {
+        axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${store.apiKey}&language=${store.language}`).then(res => {
+            const data = res.data.results;
+            this.store.moviesDb = data;
+        });
+        axios.get(`https://api.themoviedb.org/3/tv/popular?api_key=${store.apiKey}&language=${store.language}`).then(res => {
+            const data = res.data.results;
+            this.store.seriesDb = data;
+        })
     }
+
 }
 </script>
 
