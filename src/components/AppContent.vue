@@ -20,6 +20,9 @@ export default {
         <ItemCard v-for="movie in store.moviesDb" :key="movie.id" :item="movie" />
         <ItemCard v-for="series in store.seriesDb" :key="series.id" :item="series" />
     </ul>
+    <div v-if="store.stringToSearch == ''" class="flex card-wrapper">
+        <p>Nessun elemento trovato</p>
+    </div>
 </template>
 
 <style lang="scss" scoped>
