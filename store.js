@@ -14,6 +14,11 @@ export const store = reactive({
     apiKey: '7d0a43d485e86b97c1bff5bec83fa48b',
     language: 'it-IT',
     page: 1,
+    flags: {
+        it: '/it.png',
+        en: '/en.png',
+        ja: '/ja.png'
+    },
 
     // metodo che chiama tramite axios le due api e assegna a due array i dati ricevuti
     fetchList() {

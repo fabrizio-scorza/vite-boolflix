@@ -7,7 +7,6 @@ export default {
     data() {
         return {
             store,
-            lang: ['en', 'it', 'ja'],
             cast: [],
             genres: []
         }
@@ -17,12 +16,6 @@ export default {
         starCalc(vote) {
             vote = Math.ceil(vote / 2);
             return vote;
-        },
-        // metodo che calcola in base al voto le stelle mancanti
-        emptyStarCalc(vote) {
-            vote = Math.ceil(vote / 2);
-            const emptyVote = 5 - vote;
-            return emptyVote;
         },
         //metodo che chiama l'api per il cast
         callCastApi(card) {
@@ -130,10 +123,10 @@ export default {
 
                 <p class="card-body-flex">
                     <!-- paragrafo contenete se lpecifiche di lingua e voto -->
-                    <span v-if="lang.includes(item.original_language)" class="card-body-flex">
+                    <span v-if="store.flags[item.original_language]" class="card-body-flex">
                         <!-- controllo della lingua se inclusa nell'array lang per mettere la bandiera alò posto della stringa -->
                         <span>Lingua originale:</span>
-                        <img :src="`/${item.original_language}.png`" alt="">
+                        <img :src="store.flags[item.original_language]" alt="">
                     </span>
                     <span v-else class="card-body-flex">
                         <!-- in caso contrario resta la stringa -->
@@ -143,7 +136,7 @@ export default {
                     <!-- voto calcolato con i metodi stelle piene e stelle vuote -->
                     <span>Voto:</span>
                     <font-awesome-icon v-for="n in starCalc(item.vote_average)" :key="n" icon="fa-solid fa-star" />
-                    <font-awesome-icon v-for="n in emptyStarCalc(item.vote_average)" :key="n"
+                    <font-awesome-icon v-for="n in 5 - starCalc(item.vote_average)" :key="n"
                         icon="fa-regular fa-star" />
                 </p>
             </div>
